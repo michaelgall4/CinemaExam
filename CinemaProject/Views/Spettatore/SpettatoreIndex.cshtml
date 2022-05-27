@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CinemaProject.Models.SpettatoreViewModel>;
+@{
+    ViewBag.Title = "Home Impiegati";
+}
+
+
+    <h1 class="display-4">Dati inseriti</h1>
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(model=>model.Nome)</th>
+            <th>@Html.DisplayNameFor(model=>model.Cognome)</th>
+            <th>@Html.DisplayNameFor(model=>model.DataNascita)</th>
+        </tr>
+  @if(Model != null && Model.Any())
+    {
+       foreach(var spettatore in Model)
+        {
+            <tr>
+                <td>@spettatore.Nome</td>
+                <td>@spettatore.Cognome</td>
+                <td>@spettatore.DataNascita</td>
+                <td>
+                    @Html.ActionLink("Add", "Add", new { Id=spettatore.IdSpettatore}) 
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <td colspan=5 class="text-center">  @Html.ActionLink("Aggiungi", "AddSpettatore", "Spettatore")</td>
+    }
+</table>
