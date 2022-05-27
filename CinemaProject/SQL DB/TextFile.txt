@@ -1,0 +1,33 @@
+﻿CREATE TABLE Film(
+IdFilm int PRIMARY KEY NOT NULL,
+Titolo varchar(50) NOT NULL,
+Autore varchar(70) NULL,
+Produttore varchar(70) NULL,
+Genere varchar(50) NOT NULL,
+Durata decimal NOT NULL,
+)
+CREATE TABLE SalaCinema(
+IdSala int PRIMARY KEY IDENTITY(1,1),
+SalaN int NOT NULL,
+NSpettatori int NOT NULL,
+IdFilm int REFERENCES Film
+)
+CREATE TABLE Spettatore(
+IdSpettatore int PRIMARY KEY IDENTITY(1,1),
+Nome nvarchar(30) NOT NULL,
+Cognome nvarchar(30) NOT NULL,
+DataNascita DATE NOT NULL,
+)
+CREATE TABLE Biglietto(
+IdBiglietto int PRIMARY KEY IDENTITY(1,1),
+NSala int NOT NULL,
+NPosto int NOT NULL,
+IdSpettatore int REFERENCES Spettatore,
+Costo decimal
+)
+
+CREATE TABLE InteroCinema(
+IdCinema int PRIMARY KEY NOT NULL,
+IdSala int REFERENCES SalaCinema,
+Incasso decimal
+)
