@@ -18,23 +18,39 @@ namespace CinemaProject.Controllers
 
         }
 
-        public IActionResult SpettatoreIndex()
+        public IActionResult BigliettoIndex()
         {
             return View(bigliettoDBManager.GetAllBiglietti());
         }
 
-        //[HttpGet]
-        //public IActionResult AddSpettatore()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public IActionResult AddBiglietto()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //public IActionResult AddSpettatore(SpettatoreViewModel spettatore)
-        //{
-        //    spettatoreDBManager.AddSpettatore(spettatore);
-        //    return RedirectToAction("SpettatoreIndex");
-        //}
+        [HttpPost]
+        public IActionResult AddBiglietto(BigliettoViewModel biglietto)
+        {
+            bigliettoDBManager.AddBiglietto(biglietto);
+            return RedirectToAction("BigliettoIndex");
+        }
+
+        [HttpGet]
+        public IActionResult DetailsBiglietto(int id)
+        {
+            var biglietto = bigliettoDBManager.GetAllBiglietti().Where(x => x.IdBiglietto == id).FirstOrDefault();
+            return View(biglietto);
+        }
+
+        [HttpPost]
+        public IActionResult DetailsBiglietto(BigliettoViewModel biglietto)
+        {
+            var res = bigliettoDBManager.GetAllBiglietti().Where(x => x.IdBiglietto == biglietto.IdBiglietto).FirstOrDefault();
+            if (res != null)
+                bigliettoDBManager.DetailsBiglietto(biglietto);
+            return RedirectToAction("BigliettoIndex");
+        }
 
         public IActionResult Privacy()
         {
@@ -46,5 +62,6 @@ namespace CinemaProject.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+ 
     }
 }

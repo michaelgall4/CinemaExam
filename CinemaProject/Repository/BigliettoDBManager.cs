@@ -37,19 +37,37 @@ namespace CinemaProject.Repository
             return bigliettoList;
         }
 
-        //public int AddSpettatore(SpettatoreViewModel spettatore)
-        //{
-        //    string sql = @"INSERT INTO [dbo].[Spettatore]
-        //                        ([Nome],[Cognome],[DataNascita])
-        //                        values (@Nome, @Cognome, @DataNascita)";
-        //    using var connection = new SqlConnection(connectionString);
-        //    connection.Open();
-        //    using var command = new SqlCommand(sql, connection);
-        //    command.Parameters.AddWithValue("@Nome", spettatore.Nome);
-        //    command.Parameters.AddWithValue("@Cognome", spettatore.Cognome);
-        //    command.Parameters.AddWithValue("@DataNascita", spettatore.DataNascita);
-        //    return command.ExecuteNonQuery();
-        //}
+        public int AddBiglietto(BigliettoViewModel biglietto)
+        {
+            string sql = @"INSERT INTO [dbo].[Biglietto]
+                                ([NSala],[NPosto],[Costo])
+                                values (@NSala, @NPosto, @Costo)";
+            using var connection = new SqlConnection(connectionString);
+            connection.Open();
+            using var command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@NSala", biglietto.NSala);
+            command.Parameters.AddWithValue("@NPosto", biglietto.NPosto);
+            command.Parameters.AddWithValue("@Costo", biglietto.Costo);
+            return command.ExecuteNonQuery();
+        }
+
+        public int DetailsBiglietto(BigliettoViewModel biglietto)
+        {
+            string sql = @"SELECT * FROM dbo.Biglietto B
+                            JOIN Spettatore S ON B.IdSpettatore = S.IdSpettatore";
+            using var connection = new SqlConnection(connectionString);
+            connection.Open();
+            using var command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@IdSpettatore", biglietto.IdSpettatore);
+            command.Parameters.AddWithValue("@IdBiglietto", biglietto.IdBiglietto);
+            command.Parameters.AddWithValue("@Nome", biglietto.Nome);
+            command.Parameters.AddWithValue("@Cognome", biglietto.Cognome);
+            command.Parameters.AddWithValue("@DataNascita", biglietto.DataNascita);
+            command.Parameters.AddWithValue("@NSala", biglietto.NSala);
+            command.Parameters.AddWithValue("@NPosto", biglietto.NPosto);
+            command.Parameters.AddWithValue("@Costo", biglietto.Costo);
+            return command.ExecuteNonQuery();
+        }
 
 
     }

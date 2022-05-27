@@ -19,9 +19,9 @@
                 <td>@spettatore.Nome</td>
                 <td>@spettatore.Cognome</td>
                 <td>@spettatore.DataNascita</td>
-                <td>
-                    @Html.ActionLink("Add", "Add", new { Id=spettatore.IdSpettatore}) 
-                </td>
+                <tr>
+                    @Html.ActionLink("Aggiungi", "Add", new { Id=spettatore.IdSpettatore}) 
+                </tr>
             </tr>
         }
     }
